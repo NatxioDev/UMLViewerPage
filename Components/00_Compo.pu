@@ -1,21 +1,32 @@
 @startuml
 
-package "Sistema CRM" {
-  component "Interfaz de Usuario" as UI
-  component "Controlador" as Controller
-  component "Servicios CRM" as CRM_Services
-  component "Base de Datos" as Database
+package "Some Group" {
+  HTTP - [First Component]
+  [Another Component]
 }
 
-package "Sistemas Externos" {
-  component "Sistema Financiero" as Financial_System
-  component "Servicio de Autenticación" as Auth_Service
+node "Other Groups" {
+  FTP - [Second Component]
+  [First Component] --> FTP
 }
 
-UI --> Controller
-Controller --> CRM_Services
-CRM_Services --> Database
-CRM_Services --> Financial_System
-Controller --> Auth_Service
+cloud {
+  [Example 1]
+}
+
+
+database "MySql" {
+  folder "This is my folder" {
+    [Folder 3]
+  }
+  frame "Foo" {
+    [Frame 4]
+  }
+}
+
+
+[Another Component] --> [Example 1]
+[Example 1] --> [Folder 3]
+[Folder 3] --> [Frame 4]
 
 @enduml
