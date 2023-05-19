@@ -1,0 +1,29 @@
+@startuml Creacion de Usuario
+actor Administrador as user
+
+
+boundary "Pantalla\nCliente" as CLientView
+control "Servidor Backend" as Backend
+database "Base de Datos" as Database
+
+user -> CLientView: Ingresar a pagina de Cliente
+CLientView --> user: Mostar pagina de Cliente
+user -> CLientView: Crear Cliente
+CLientView-> Backend: Verificar Existencia
+Backend --> CLientView: Respuesta Existencia
+
+alt Cliente no existente
+    CLientView -> user: Solicitar Informacion del cliente
+    user -> CLientView: Ingresar Informacion
+
+    CLientView-> Backend: Verificar informacion
+    Backend --> Database: Registrar informacion
+    Database --> Backend: Respuesta de registro
+    Backend --> CLientView: Respuesta de registro
+    CLientView --> user: Mensaje de Éxito
+
+else Cliente existente
+
+    CLientView --> user: Mensaje de Error
+end
+@enduml

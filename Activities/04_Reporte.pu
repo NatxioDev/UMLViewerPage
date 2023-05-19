@@ -1,0 +1,34 @@
+@startuml
+
+|Usuario|
+start
+:Ingresar al Sistema;
+|Sistema CRM|
+:Mostrar interfaz de\n Creacion de Solicitud;
+|Usuario|
+
+fork
+    :Seleccionar Tipo de Reporte;
+fork again
+    :Seleccionar Parámetros de Tiempo;
+fork again
+    :Seleccionar Filtros;
+end fork
+
+:Enviar Solicitud de reporte al sistema;
+
+|Sistema CRM|
+:Recibir Solicitud de Reporte;
+:Recuperar Datos para el Reporte;
+
+fork
+    :Procesar Datos;
+fork again
+    :Generar Gráficos;
+end fork
+
+:Mostrar Gráficos al Usuario;
+
+stop
+
+@enduml

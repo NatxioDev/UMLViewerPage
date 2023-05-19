@@ -1,0 +1,20 @@
+@startuml
+
+|Usuario Administrador|
+start
+:Iniciar Creación de Usuario;
+|Sistema CRM|
+:Ingresar Información de Usuario;
+|Sistema Financiero|
+if (Usuario Existe en Sistema Financiero?) then (Sí)
+    |Sistema CRM|
+    :Registrar Usuario;
+    :Mostrar mensaje de éxito;
+    stop
+else (No)
+    |Sistema Financiero|
+    :Mostrar mensaje de error;
+    stop
+endif
+
+@enduml

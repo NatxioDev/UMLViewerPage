@@ -1,0 +1,37 @@
+@startuml
+
+actor Usuario as User
+boundary "Vista Solicitud" as SystemView
+boundary "Vista Cliente" as ClientView
+boundary "Vista Asignación" as AssignmentView
+control "Servidor Backend" as Backend
+database "Base de Datos" as Database
+
+User -> SystemView: Abrir Vista de Solicitud
+SystemView -> Backend: Verificar Cliente Existente
+Backend --> SystemView: Devolver Cliente
+
+alt Cliente no existente
+  SystemView -> ClientView: Mostrar Vista de Cliente
+  ClientView -> Backend: Registrar Nuevo Cliente
+  Backend --> ClientView: Cliente Registrado
+  ClientView --> SystemView: Devolver Cliente
+end
+
+User -> SystemView: Ingresa Información de Solicitud
+SystemView -> Backend: Verificar Información de la Solicitud
+Backend -> Database: Registrar Solicitud en la Base de Datos
+Database --> Backend: Solicitud Registrada
+Backend -> SystemView: Devolver Solicitud Registrada
+SystemView -> User: Mostrar Solicitud Registrada
+AssignmentView -> User: Mostrar Vista de Asignación
+User -> AssignmentView: Asignar Solicitud a Usuario
+
+AssignmentView -> Backend: Verificar Asignacion
+Backend -> Database: Registrar Asignacion 
+Database --> Backend: Asignacion Registrada
+Backend -> AssignmentView: Devolver Asignacion Registrada
+AssignmentView -> User: Mostrar Asignacion Registrada
+
+
+@enduml

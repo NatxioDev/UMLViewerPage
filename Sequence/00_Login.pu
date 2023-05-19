@@ -1,0 +1,28 @@
+@startuml Inicio de Sesion
+
+actor Usuario as User
+boundary "Vista Login" as LoginView
+control "Servidor Backend" as Backend
+control "Servidor de Autentificacion" as ExternalService
+
+User -> LoginView: Ingresar a pagina de login
+LoginView --> User: Mostar pagina de login
+User -> LoginView: Ingresar Credenciales
+LoginView -> Backend: Enviar Credenciales
+alt Informacion Valida
+  Backend -> ExternalService: Verificar Credenciales
+  alt Credenciales válidas
+    ExternalService --> ExternalService: Validar Credenciales
+    ExternalService --> Backend: Credenciales Válidas
+    Backend --> LoginView: Autenticación Exitosa
+    LoginView --> User: Mostar pantalla de Inicio
+  else Credenciales inválidas
+    ExternalService --> Backend: Credenciales Inválidas
+    Backend --> LoginView: Autenticación Fallida
+    LoginView --> User: Mostrar mensaje de error
+  end
+else Informacion no Valida
+  LoginView --> User: Mostrar mensaje de error
+end
+
+@enduml

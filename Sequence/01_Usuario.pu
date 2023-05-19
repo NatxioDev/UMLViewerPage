@@ -1,0 +1,31 @@
+@startuml Creacion de Usuario
+actor Administrador
+
+
+boundary "Pantalla\nUsuarios" as Usuario
+control "Sistema Financiero" as ASFI
+control "Servidor Backend" as Backend
+database "Base de Datos" as BD
+
+Administrador -> Usuario: Ingresar a pagina de Usuario
+Usuario --> Administrador: Mostar pagina de Usuario
+Administrador -> Usuario: Crear Usuario
+Usuario-> ASFI: Verificar Existencia
+ASFI --> Usuario: Respuesta Existencia
+
+alt Usuario Existente
+    
+    Administrador -> Usuario: Ingresar Informacion
+
+    Usuario -> Backend: Verificar informacion
+    Backend -> BD: Registrar Usuario
+
+    BD --> Usuario: Respuesta Registro
+
+    Usuario --> Administrador: Mensaje de Éxito
+
+else Usuario no existente
+
+    Usuario --> Administrador: Mensaje de Error
+end
+@enduml

@@ -1,0 +1,140 @@
+@startuml
+
+left to right direction
+
+class Usuario {
+    - id: int
+    - nombre: string
+    - apellido: string
+    - correoElectronico: string
+    - contrasena: string
+    - telefono: string
+    - agencia: Agencia
+    - roles: List<Rol>
+    - solicitudes: List<Solicitud>
+    + obtenerNombreCompleto(): string
+    + agregarRol(rol: Rol): void
+    + removerRol(rol: Rol): void
+    + asignarAgencia(agencia: Agencia): void
+    + obtenerSolicitudesPorEstado(estado: EstadoSolicitud): List<Solicitud>
+
+}
+
+class Cliente {
+    - id: int
+    - nombre: string
+    - apellido: string
+    - direccion: string
+    - telefono: string
+    - correoElectronico: string
+}
+
+class Solicitud {
+    - id: int
+    - nombre: string
+    - cliente: Cliente
+    - producto: Producto
+    - estado: EstadoSolicitud
+    - fechaCreacion: Date
+    - fechaVencimiento: Date
+    - notas: List<Nota>
+    - archivos: List<Archivo>
+    - tipo: TipoSolicitud
+    - agenteAsignado: Usuario
+    + asignarUsuario(cliente: Cliente): void
+    + cambiarEstado(estado: EstadoSolicitud): void
+    + obtenerFechaCreacion(): Date
+    + obtenerFechaVencimiento(): Date
+}
+
+
+class Rol {
+    - id: int
+    - nombre: string
+}
+
+class Rubro {
+    - id: int
+    - nombre: string
+    - descripcion: string
+}
+
+class Producto {
+    - id: int
+    - nombre: string
+    - descripcion: string
+    - rubro: Rubro
+}
+
+class Servicio {
+    - id: int
+    - nombre: string
+    - descripcion: string
+    - producto: Producto
+}
+
+class TipoSolicitud {
+    - id: int
+    - nombre: string
+    - servicio: Servicio
+    - tiempoEspera: int
+    - tiempoParalizacion: int
+}
+
+class Nota {
+    - id: int
+    - tipo: string
+    - detalle: string
+    - fecha: date
+    - autor: string
+}
+
+class Archivo {
+    - id: int
+    - tipo: string
+    - archivo: file
+    - fecha: date
+}
+
+class Agencia {
+    - id: int
+    - nombre: string
+    - direccion: string
+    - telefono: string
+}
+
+enum EstadoSolicitud {
+    NUEVA
+    PENDIENTE
+    VENCIDA
+    PARALIZADA
+    FINALIZADA
+    ANULADA
+    RECHAZADA
+}
+
+Usuario "1" -- "*" Rol
+Usuario "1" -- "*" Solicitud
+Usuario "1" -- "1" Agencia
+
+Cliente "1" -- "*" Solicitud
+Cliente "1" -- "*" Producto
+
+Rubro "1" -- "*" Producto
+Producto "1" -- "*" Servicio
+Servicio "1" -- "*" TipoSolicitud
+TipoSolicitud "1" -- "*" Solicitud
+
+Solicitud "1" -- "1" EstadoSolicitud
+Solicitud "1" -- "*" Nota
+Solicitud "1" -- "*" Archivo
+
+@enduml
+
+' TODO
+' Añadir notas
+' Añadir archivos
+'  Clietne tiene productos
+'  Clietne tiene solicitudes
+' Usuaro tiene solicitudes
+'  Añadir agencia

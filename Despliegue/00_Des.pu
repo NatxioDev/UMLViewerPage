@@ -1,0 +1,32 @@
+@startuml
+
+node "Usuario" as user {
+    component "Interfaz de Usuario" as UI
+    component "Aplicacion Web" as WebApp
+}
+
+node "Servidor Web" as web_server {
+    component "Backend" as Backend
+    component "Spring Boot" as SpringBoot
+
+}
+
+node "Servidor de Autenticación" as Auth_Server {
+
+    component "Keycloak" as AuthService
+}
+
+node "Sistema Financiero Privado" as Financial_Server {
+    component "Sistema Financiero" as FinancialSystem
+}
+
+node "Base de Datos" as BD {
+    component "PostgreSQL" as Database
+}
+
+UI --> Backend
+Backend --> Database
+Backend --> AuthService
+Backend --> FinancialSystem
+
+@enduml

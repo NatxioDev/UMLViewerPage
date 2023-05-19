@@ -1,0 +1,27 @@
+@startuml
+
+|Usuario|
+start
+:Ingresar al Sistema;
+|Sistema CRM|
+:Mostrar interfaz de\n Inicio de Sesion;
+|Usuario|
+:Ingresar informacion Basica del Cliente;
+|Sistema CRM|
+if (Cliente Existe en el Sistema?) then (No)
+    |Sistema CRM|
+    :Solicitar Información Completa del Cliente;
+    |Usuario|
+    :Ingresar Información Completa del Cliente;
+    |Sistema CRM|
+    :Guardar Registro del Cliente en el Sistema;
+    :Guardar Cliente en la Base de Datos;
+    :Mostrar Confirmación de Creación Exitosa;
+    stop
+else (Sí)
+    |Sistema CRM|
+    :Mostrar Mensaje de Cliente Existente;
+    stop
+endif
+
+@enduml

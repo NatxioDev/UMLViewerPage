@@ -1,0 +1,20 @@
+@startuml
+
+actor Usuario as User
+boundary "Vista Reporte" as ReportView
+control "Servidor Backend" as Backend
+database "Base de Datos" as Database
+
+User -> ReportView: Abrir Vista de Reporte
+User <-- ReportView: Mostrar Vista de Reporte
+User -> ReportView: Seleccionar Tipo de Reporte
+User -> ReportView: Seleccionar Parámetros de Tiempo y Filtros
+ReportView -> Backend: Solicitar Reporte
+
+Backend -> Database: Consultar Base de Datos
+Database --> Backend: Datos del Reporte
+Backend --> Backend: Procesar datos para el Reporte
+Backend -> ReportView: Generar Gráficos
+ReportView --> User: Mostrar Gráficos
+
+@enduml

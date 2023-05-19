@@ -1,0 +1,52 @@
+@startuml
+
+|Usuario|
+start
+:Ingresar al Sistema;
+|Sistema|
+:Mostrar interfaz de\n Inicio de Sesion;
+:Solicitar Credenciales;
+|Usuario|
+:Ingresar Credenciales;
+:Enviar Credenciales;
+|Sistema|
+:Recibir Credenciales;
+:Verificar Informacion;
+
+if (Informacion válida?) then (No)
+    :Mostrar Mensaje de Error;
+    stop
+else (Si)
+    |Servicio de Autenticación|
+    :Verificar Credenciales;
+    if (Credenciales Correctas?) then (Si)
+        |Sistema|
+        :Confirmar Credenciales;
+        fork
+            :Crear Sesion ;
+        fork again
+            :Obtener informacion del Usuario;
+        fork again
+            :Asignar Rol al Usuario;
+        endfork
+
+        :Mostrar Pantalla de Inicio;
+
+
+        stop
+    else (No)
+        |Servicio de Autenticación|
+        if (>3 intentos fallidos) then (Sí)
+            :Bloquear Cuenta;
+            :Mostrar Mensaje de Error;
+            stop
+        else (No)
+
+            :Solicitar Credenciales;
+            stop
+
+        endif
+
+    endif
+
+    @enduml

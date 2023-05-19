@@ -1,0 +1,35 @@
+@startuml
+
+|Usuario|
+start
+:Ingresar al Sistema;
+|Sistema CRM|
+:Mostrar interfaz de\n Creacion de Solicitud;
+|Usuario|
+:Ingresar informacion del Cliente;
+|Sistema CRM|
+:Buscar Cliente;
+if (Cliente Existe?) then (Sí)
+    |Sistema CRM|
+
+else (No)
+    |Sistema CRM|
+    :Solicitud de Información Básica del Cliente;
+    |Usuario|
+    :Ingresar Información\nBasica del Cliente;
+    |Sistema CRM|
+    :Registrar Informacion del Cliente;
+endif
+
+:Ingresar Información de la Solicitud;
+:Guardar Solicitud en la Base de Datos;
+|Sistema CRM|
+:Mostrar Confirmacion de\nCreacion de Solicitud;
+|Usuario|
+:Asignar Solicitud a un Usuario;
+|Sistema CRM|
+:Guardar Asignación en la Base de Datos;
+|Sistema CRM|
+:Mostrar Confirmación de Creación Exitosa;
+stop
+@enduml

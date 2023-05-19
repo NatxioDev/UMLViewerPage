@@ -1,0 +1,21 @@
+@startuml
+
+package "Sistema CRM" {
+  component "Interfaz de Usuario" as UI
+  component "Controlador" as Controller
+  component "Servicios CRM" as CRM_Services
+  component "Base de Datos" as Database
+}
+
+package "Sistemas Externos" {
+  component "Sistema Financiero" as Financial_System
+  component "Servicio de Autenticación" as Auth_Service
+}
+
+UI --> Controller
+Controller --> CRM_Services
+CRM_Services --> Database
+CRM_Services --> Financial_System
+Controller --> Auth_Service
+
+@enduml
