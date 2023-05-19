@@ -1,0 +1,16 @@
+start
+:Usuario inicia sesión;
+:Acceder a la función de creación de solicitud;
+:Seleccionar el tipo de solicitud;
+:Ingresar detalles y descripción;
+if (¿Adjuntar archivos?) then (Sí)
+  :Adjuntar archivos;
+else (No)
+  :Continuar;
+endif
+:Seleccionar la prioridad;
+:Asignar a un departamento;
+:Guardar y enviar la solicitud;
+:Sistema CRM registra y procesa la solicitud;
+:Fin;
+stop
